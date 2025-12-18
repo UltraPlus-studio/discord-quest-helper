@@ -1,0 +1,158 @@
+name: 'publish'
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'public/version.txt'
+
+permissions:
+  contents: write
+  packages: write
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build-tauri:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: 'windows-latest'
+            args: ''
+            x-target: 'win32-x64'
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+      
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'pnpm'
+
+      - name: install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+
+      - name: Cache Cargo registry
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/registry
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-registry-
+      
+      - name: Cache Cargo index
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/git
+          key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-index-
+
+      - name: Get version
+        shell: bash
+        run: |
+          version=$(cat public/version.txt)
+          echo "version=$version" >> $GITHUB_ENV
+      
+      # Build src-runner
+      - name: Build src-runner project x86_64 binary
+        if: matrix.platform == 'windows-latest'
+        shell: bash
+        run: | 
+          cd src-runner
+          cargo build --release --verbose
+          cd ..
+          mkdir -p src-tauri/resources
+          cp ./src-runner/target/release/discord-quest-runner.exe ./src-tauri/resources/discord-quest-runner.exe
+
+      - name: Rust cache (Tauri App)
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
+    
+      - name: install frontend dependencies
+        run: pnpm install
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: ${{ matrix.args }}
+      
+      - name: Create artifact for release
+        id: create_artifact_for_release
+        uses: actions/upload-artifact@v4
+        with:
+          name: tauri-win-release
+          path: |
+            src-tauri/target/release/discord-quest-helper.exe
+            src-tauri/target/release/bundle/
+            src-tauri/target/release/data/
+
+  release:
+    needs: build-tauri
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: get version
+        id: extract_version
+        run: |
+          version=$(cat public/version.txt)
+          echo "version=$version" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tauri-win-release
+          path: tauri-win-release
+
+      - name: prepare files
+        env:
+          version: ${{ env.version }}
+          win_build_release_dir: discord-quest-helper-win32-x64-${{ env.version }}
+        run: |
+          # Create portable directory structure
+          mkdir -p ./build/${{ env.win_build_release_dir }}/data
+          
+          # The artifact preserves the original path structure
+          RELEASE_DIR="tauri-win-release/src-tauri/target/release"
+          
+          # Copy main executable
+          cp "$RELEASE_DIR/discord-quest-helper.exe" ./build/${{ env.win_build_release_dir }}/
+          
+          # Copy data directory (contains discord-quest-runner.exe)
+          if [ -d "$RELEASE_DIR/data" ]; then
+            cp -r "$RELEASE_DIR/data/"* ./build/${{ env.win_build_release_dir }}/data/
+          fi
+          
+          # Create zip archive
+          cd build
+          zip -r ${{ env.win_build_release_dir }}.zip ${{ env.win_build_release_dir }}
+          echo "win_build_release_dir=${{ env.win_build_release_dir }}" >> $GITHUB_ENV
+
+      - name: Create and Upload Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.version }}
+          name: ${{ env.version }}
+          generate_release_notes: true
+          files: |
+            ./build/${{ env.win_build_release_dir }}.zip
+          prerelease: false
+          draft: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
