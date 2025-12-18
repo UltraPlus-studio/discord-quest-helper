@@ -1,0 +1,132 @@
+export default {
+    general: {
+        title: "Discord Quest Helper",
+        subtitle: "Discord 퀘스트 관리 대시보드",
+        welcome: "Discord Quest Helper에 오신 것을 환영합니다",
+        login_prompt: "Discord 계정으로 로그인하여 퀘스트 관리를 시작하세요.",
+        theme: {
+            light: "라이트",
+            dark: "다크",
+            system: "시스템"
+        },
+        language: "언어",
+        logout: "로그아웃",
+        loading: "로딩 중...",
+        refresh: "새로고침",
+        stop: "중지",
+        clear: "지우기",
+        clear_all: "모두 지우기"
+    },
+    auth: {
+        auto_detect: "토큰 자동 감지",
+        paste_token: "Discord 토큰 붙여넣기",
+        login: "로그인",
+        or: "또는",
+        authenticated_as: "인증됨:"
+    },
+    nav: {
+        home: "홈",
+        game_simulator: "게임 시뮬레이터",
+        settings: "설정"
+    },
+    home: {
+        welcome: "다시 오셨군요, {name}",
+        no_account: "계정이 선택되지 않음",
+        available_quests: "이용 가능한 퀘스트",
+        filters: "필터",
+        accept_all: "모두 수락",
+        complete_all_video: "모든 비디오 퀘스트 완료",
+        processing_queue: "처리 대기열",
+        remaining: "남음",
+        accept_quest: "퀘스트 수락",
+        stop_quest: "퀘스트 중지",
+        complete_quest: "퀘스트 완료"
+    },
+    quest: {
+        progress: "진행률",
+        required: "필요",
+        expires: "만료",
+        in_game_rewards: "게임 내 보상",
+        discord_rewards: "Discord 보상",
+        active_progress: "활성 퀘스트 진행률",
+        no_active: "활성 퀘스트 없음",
+        up_next: "다음"
+    },
+    filter: {
+        status: "상태",
+        type: "유형",
+        reward: "보상",
+        not_accepted: "미수락",
+        in_progress: "진행 중",
+        pending_claim: "수령 대기",
+        claimed: "수령됨",
+        video: "비디오",
+        watch: "시청",
+        play: "플레이",
+        activity: "활동",
+        stream_play: "스트림/플레이",
+        orbs: "오브",
+        decoration: "장식",
+        in_game: "게임 내"
+    },
+    settings: {
+        title: "설정",
+        discord_token: "Discord 토큰",
+        discord_token_desc: "퀘스트에 액세스하려면 Discord로 인증하세요. 자동 감지는 로컬 Discord 설치에서 토큰을 읽습니다.",
+        quest_config: "퀘스트 구성",
+        quest_config_desc: "자동 완료 동작을 조정합니다.",
+        completion_speed: "완료 속도",
+        speed_normal: "일반",
+        speed_fast: "빠름",
+        speed_hint: "실제 1초 = 비디오 1초",
+        request_interval: "요청 간격",
+        interval_fast: "빠름",
+        interval_slow: "느림",
+        interval_hint: "높을수록 = 속도 제한에 안전",
+        about: "정보",
+        about_desc: "Discord 퀘스트를 자동으로 완료하는 도구입니다.",
+        about_warning: "경고: 이 도구의 사용은 Discord 서비스 약관을 위반할 수 있습니다. 본인의 책임 하에 사용하세요.",
+        credits: "크레딧",
+        credits_desc: "다음 작업을 기반으로 함:",
+        tech_stack: "기술 스택"
+    },
+    game_sim: {
+        title: "게임 시뮬레이터",
+        description: "실제로 게임을 실행하지 않고 스트림/플레이 퀘스트를 완료하기 위해 게임 실행을 시뮬레이션합니다.",
+        detectables: "감지 가능한 게임",
+        select_title: "게임 선택",
+        search: "게임 검색...",
+        no_games: "게임을 찾을 수 없음",
+        start_simulate: "시뮬레이션 시작",
+        stop_simulate: "시뮬레이션 중지",
+        simulating: "시뮬레이션 중",
+        select_game: "시작하려면 목록에서 게임을 선택하세요",
+        not_simulating: "시뮬레이션 중인 게임 없음",
+        config_title: "게임 구성",
+        config_desc: "시뮬레이션할 게임을 구성하고 실행합니다.",
+        select_exe: "실행 파일 선택",
+        install_path: "설치 경로",
+        create_game: "시뮬레이션 게임 생성",
+        creating: "생성 중...",
+        run_game: "게임 실행",
+        starting: "시작 중...",
+        stop: "중지",
+        stopping: "중지 중...",
+        exe_count: "{count}개의 실행 파일",
+        showing_top: "상위 {count}개 게임 표시 중. 검색하여 더 찾기."
+    },
+    account: {
+        select_title: "계정 선택",
+        select_desc: "여러 유효한 Discord 토큰을 찾았습니다. 사용할 계정을 선택하세요:",
+        cancel: "취소"
+    },
+    dialog: {
+        accept_quests_title: "퀘스트 수락",
+        accept_quests_desc: "{count}개의 퀘스트를 수락하시겠습니까? 이 퀘스트들에 등록됩니다.",
+        complete_quests_title: "비디오 퀘스트 완료",
+        complete_quests_desc: "{count}개의 비디오 퀘스트를 대기열에 추가하시겠습니까? 순서대로 처리됩니다.",
+        cancel: "취소",
+        accept: "수락",
+        start: "시작"
+    }
+}

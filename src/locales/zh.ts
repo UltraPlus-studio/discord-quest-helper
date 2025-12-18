@@ -1,0 +1,132 @@
+export default {
+    general: {
+        title: "Discord Quest Helper",
+        subtitle: "Discord 任务管理面板",
+        welcome: "欢迎使用 Discord Quest Helper",
+        login_prompt: "登录您的 Discord 账号以开始管理任务。",
+        theme: {
+            light: "浅色",
+            dark: "深色",
+            system: "跟随系统"
+        },
+        language: "语言",
+        logout: "退出登录",
+        loading: "加载中...",
+        refresh: "刷新",
+        stop: "停止",
+        clear: "清除",
+        clear_all: "清除全部"
+    },
+    auth: {
+        auto_detect: "自动检测 Token",
+        paste_token: "粘贴 Discord Token",
+        login: "登录",
+        or: "或",
+        authenticated_as: "已登录为"
+    },
+    nav: {
+        home: "首页",
+        game_simulator: "游戏模拟",
+        settings: "设置"
+    },
+    home: {
+        welcome: "欢迎回来, {name}",
+        no_account: "未选择账号",
+        available_quests: "可用任务",
+        filters: "筛选",
+        accept_all: "全部接受",
+        complete_all_video: "完成所有视频任务",
+        processing_queue: "处理队列",
+        remaining: "剩余",
+        accept_quest: "接受任务",
+        stop_quest: "停止任务",
+        complete_quest: "完成任务"
+    },
+    quest: {
+        progress: "进度",
+        required: "需要",
+        expires: "过期时间",
+        in_game_rewards: "游戏内奖励",
+        discord_rewards: "Discord 奖励",
+        active_progress: "当前任务进度",
+        no_active: "暂无进行中的任务",
+        up_next: "接下来"
+    },
+    filter: {
+        status: "状态",
+        type: "类型",
+        reward: "奖励",
+        not_accepted: "未接受",
+        in_progress: "进行中",
+        pending_claim: "待领取",
+        claimed: "已领取",
+        video: "视频",
+        watch: "观看",
+        play: "游玩",
+        activity: "活动",
+        stream_play: "直播/游玩",
+        orbs: "宝珠",
+        decoration: "装饰",
+        in_game: "游戏内"
+    },
+    settings: {
+        title: "设置",
+        discord_token: "Discord Token",
+        discord_token_desc: "通过 Discord 认证以访问任务。自动检测会尝试从本地 Discord 安装中读取。",
+        quest_config: "任务配置",
+        quest_config_desc: "调整自动完成任务的行为方式。",
+        completion_speed: "完成速度",
+        speed_normal: "正常",
+        speed_fast: "快速",
+        speed_hint: "1秒真实时间 = 1秒视频时间",
+        request_interval: "请求间隔",
+        interval_fast: "快",
+        interval_slow: "慢",
+        interval_hint: "越高 = 越不容易被限流",
+        about: "关于",
+        about_desc: "一个帮助自动完成 Discord 任务的工具。",
+        about_warning: "警告：使用此工具可能违反 Discord 的服务条款。请自行承担风险。",
+        credits: "致谢",
+        credits_desc: "基于以下项目：",
+        tech_stack: "技术栈"
+    },
+    game_sim: {
+        title: "游戏模拟",
+        description: "模拟运行游戏以完成直播/游玩任务，无需实际运行游戏。",
+        detectables: "可检测的游戏",
+        select_title: "选择游戏",
+        search: "搜索游戏...",
+        no_games: "未找到游戏",
+        start_simulate: "开始模拟",
+        stop_simulate: "停止模拟",
+        simulating: "模拟中",
+        select_game: "请从列表中选择一个游戏开始",
+        not_simulating: "当前未模拟任何游戏",
+        config_title: "游戏配置",
+        config_desc: "配置并运行模拟游戏。",
+        select_exe: "选择可执行文件",
+        install_path: "安装路径",
+        create_game: "创建模拟游戏",
+        creating: "创建中...",
+        run_game: "运行游戏",
+        starting: "启动中...",
+        stop: "停止",
+        stopping: "停止中...",
+        exe_count: "{count} 个可执行文件",
+        showing_top: "显示前 {count} 个游戏。搜索以查找更多。"
+    },
+    account: {
+        select_title: "选择账号",
+        select_desc: "发现了多个有效的 Discord Token，请选择要使用的账号：",
+        cancel: "取消"
+    },
+    dialog: {
+        accept_quests_title: "接受任务",
+        accept_quests_desc: "接受 {count} 个任务？此操作将报名这些任务。",
+        complete_quests_title: "完成视频任务",
+        complete_quests_desc: "将 {count} 个视频任务添加到完成队列？将逐个处理。",
+        cancel: "取消",
+        accept: "接受",
+        start: "开始"
+    }
+}

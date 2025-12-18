@@ -1,0 +1,132 @@
+export default {
+    general: {
+        title: "Discord Quest Helper",
+        subtitle: "Discordクエスト管理ダッシュボード",
+        welcome: "Discord Quest Helperへようこそ",
+        login_prompt: "Discordアカウントでログインしてクエストの管理を始めましょう。",
+        theme: {
+            light: "ライト",
+            dark: "ダーク",
+            system: "システム"
+        },
+        language: "言語",
+        logout: "ログアウト",
+        loading: "読み込み中...",
+        refresh: "更新",
+        stop: "停止",
+        clear: "クリア",
+        clear_all: "すべてクリア"
+    },
+    auth: {
+        auto_detect: "トークン自動検出",
+        paste_token: "Discordトークンを貼り付け",
+        login: "ログイン",
+        or: "または",
+        authenticated_as: "認証済み："
+    },
+    nav: {
+        home: "ホーム",
+        game_simulator: "ゲームシミュレーター",
+        settings: "設定"
+    },
+    home: {
+        welcome: "おかえりなさい、{name}",
+        no_account: "アカウントが選択されていません",
+        available_quests: "利用可能なクエスト",
+        filters: "フィルター",
+        accept_all: "すべて受け入れる",
+        complete_all_video: "すべての動画クエストを完了",
+        processing_queue: "処理キュー",
+        remaining: "残り",
+        accept_quest: "クエストを受け入れる",
+        stop_quest: "クエストを停止",
+        complete_quest: "クエストを完了"
+    },
+    quest: {
+        progress: "進捗",
+        required: "必要",
+        expires: "期限",
+        in_game_rewards: "ゲーム内報酬",
+        discord_rewards: "Discord報酬",
+        active_progress: "アクティブなクエスト進捗",
+        no_active: "アクティブなクエストなし",
+        up_next: "次のクエスト"
+    },
+    filter: {
+        status: "ステータス",
+        type: "タイプ",
+        reward: "報酬",
+        not_accepted: "未受諾",
+        in_progress: "進行中",
+        pending_claim: "受取待ち",
+        claimed: "受取済み",
+        video: "動画",
+        watch: "視聴",
+        play: "プレイ",
+        activity: "アクティビティ",
+        stream_play: "配信/プレイ",
+        orbs: "オーブ",
+        decoration: "デコレーション",
+        in_game: "ゲーム内"
+    },
+    settings: {
+        title: "設定",
+        discord_token: "Discordトークン",
+        discord_token_desc: "Discordで認証してクエストにアクセスします。自動検出はローカルのDiscordインストールからトークンを読み取ります。",
+        quest_config: "クエスト設定",
+        quest_config_desc: "自動完了の動作を調整します。",
+        completion_speed: "完了速度",
+        speed_normal: "通常",
+        speed_fast: "高速",
+        speed_hint: "実時間1秒 = 動画1秒",
+        request_interval: "リクエスト間隔",
+        interval_fast: "高速",
+        interval_slow: "低速",
+        interval_hint: "高い = レート制限に対して安全",
+        about: "について",
+        about_desc: "Discordクエストを自動的に完了するためのツール。",
+        about_warning: "警告：このツールの使用はDiscordの利用規約に違反する可能性があります。自己責任でご使用ください。",
+        credits: "クレジット",
+        credits_desc: "以下の作品に基づいています：",
+        tech_stack: "技術スタック"
+    },
+    game_sim: {
+        title: "ゲームシミュレーター",
+        description: "実際にゲームを起動せずに、配信/プレイクエストを完了するためにゲームの実行をシミュレートします。",
+        detectables: "検出可能なゲーム",
+        select_title: "ゲームを選択",
+        search: "ゲームを検索...",
+        no_games: "ゲームが見つかりません",
+        start_simulate: "シミュレーション開始",
+        stop_simulate: "シミュレーション停止",
+        simulating: "シミュレーション中",
+        select_game: "リストからゲームを選択して開始",
+        not_simulating: "シミュレーション中のゲームなし",
+        config_title: "ゲーム設定",
+        config_desc: "シミュレートするゲームを設定して実行します。",
+        select_exe: "実行ファイルを選択",
+        install_path: "インストールパス",
+        create_game: "シミュレートゲームを作成",
+        creating: "作成中...",
+        run_game: "ゲームを実行",
+        starting: "起動中...",
+        stop: "停止",
+        stopping: "停止中...",
+        exe_count: "{count}個の実行ファイル",
+        showing_top: "上位{count}ゲームを表示中。検索でさらに見つけられます。"
+    },
+    account: {
+        select_title: "アカウントを選択",
+        select_desc: "複数の有効なDiscordトークンが見つかりました。使用するアカウントを選択してください：",
+        cancel: "キャンセル"
+    },
+    dialog: {
+        accept_quests_title: "クエストを受け入れる",
+        accept_quests_desc: "{count}件のクエストを受け入れますか？これらのクエストに登録されます。",
+        complete_quests_title: "動画クエストを完了",
+        complete_quests_desc: "{count}件の動画クエストをキューに追加しますか？順番に処理されます。",
+        cancel: "キャンセル",
+        accept: "受け入れる",
+        start: "開始"
+    }
+}

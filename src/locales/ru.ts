@@ -1,0 +1,132 @@
+export default {
+    general: {
+        title: "Discord Quest Helper",
+        subtitle: "Панель управления вашими Discord Квестами",
+        welcome: "Добро пожаловать в Discord Quest Helper",
+        login_prompt: "Войдите в свой Discord аккаунт, чтобы начать управлять квестами.",
+        theme: {
+            light: "Светлая",
+            dark: "Тёмная",
+            system: "Системная"
+        },
+        language: "Язык",
+        logout: "Выйти",
+        loading: "Загрузка...",
+        refresh: "Обновить",
+        stop: "Стоп",
+        clear: "Очистить",
+        clear_all: "Очистить всё"
+    },
+    auth: {
+        auto_detect: "Автоопределение токена",
+        paste_token: "Вставить Discord токен",
+        login: "Войти",
+        or: "или",
+        authenticated_as: "Авторизован как"
+    },
+    nav: {
+        home: "Главная",
+        game_simulator: "Симулятор игр",
+        settings: "Настройки"
+    },
+    home: {
+        welcome: "С возвращением, {name}",
+        no_account: "Аккаунт не выбран",
+        available_quests: "Доступные квесты",
+        filters: "Фильтры",
+        accept_all: "Принять все",
+        complete_all_video: "Завершить все видео квесты",
+        processing_queue: "Очередь обработки",
+        remaining: "осталось",
+        accept_quest: "Принять квест",
+        stop_quest: "Остановить квест",
+        complete_quest: "Завершить квест"
+    },
+    quest: {
+        progress: "Прогресс",
+        required: "требуется",
+        expires: "Истекает",
+        in_game_rewards: "Внутриигровые награды",
+        discord_rewards: "Награды Discord",
+        active_progress: "Активный прогресс квеста",
+        no_active: "Нет активных квестов",
+        up_next: "Далее"
+    },
+    filter: {
+        status: "Статус",
+        type: "Тип",
+        reward: "Награда",
+        not_accepted: "Не принят",
+        in_progress: "В процессе",
+        pending_claim: "Ожидает получения",
+        claimed: "Получено",
+        video: "Видео",
+        watch: "Смотреть",
+        play: "Играть",
+        activity: "Активность",
+        stream_play: "Стрим/Игра",
+        orbs: "Орбы",
+        decoration: "Украшение",
+        in_game: "Внутриигровое"
+    },
+    settings: {
+        title: "Настройки",
+        discord_token: "Discord токен",
+        discord_token_desc: "Авторизуйтесь в Discord для доступа к квестам. Автоопределение пытается получить токен из локальной установки Discord.",
+        quest_config: "Настройки квестов",
+        quest_config_desc: "Настройте поведение автоматического завершения.",
+        completion_speed: "Скорость завершения",
+        speed_normal: "Обычная",
+        speed_fast: "Быстрая",
+        speed_hint: "1 сек реального = 1 сек видео",
+        request_interval: "Интервал запросов",
+        interval_fast: "Быстро",
+        interval_slow: "Медленно",
+        interval_hint: "Больше = безопаснее от лимитов",
+        about: "О программе",
+        about_desc: "Инструмент для автоматического завершения квестов Discord.",
+        about_warning: "Предупреждение: Использование этого инструмента может нарушать Условия использования Discord. Используйте на свой страх и риск.",
+        credits: "Благодарности",
+        credits_desc: "Основано на работе:",
+        tech_stack: "Технологии"
+    },
+    game_sim: {
+        title: "Симулятор игр",
+        description: "Симулируйте запуск игры для выполнения квестов Стрим/Игра без реального запуска игры.",
+        detectables: "Обнаруживаемые игры",
+        select_title: "Выбор игры",
+        search: "Поиск игр...",
+        no_games: "Игры не найдены",
+        start_simulate: "Начать симуляцию",
+        stop_simulate: "Остановить симуляцию",
+        simulating: "Симуляция",
+        select_game: "Выберите игру из списка для начала",
+        not_simulating: "Симуляция не запущена",
+        config_title: "Настройки игры",
+        config_desc: "Настройте и запустите симулируемую игру.",
+        select_exe: "Выберите исполняемый файл",
+        install_path: "Путь установки",
+        create_game: "Создать симулируемую игру",
+        creating: "Создание...",
+        run_game: "Запустить игру",
+        starting: "Запуск...",
+        stop: "Стоп",
+        stopping: "Остановка...",
+        exe_count: "{count} исп. файлов",
+        showing_top: "Показаны топ {count} игр. Используйте поиск для большего."
+    },
+    account: {
+        select_title: "Выбор аккаунта",
+        select_desc: "Найдено несколько действительных Discord токенов. Выберите аккаунт:",
+        cancel: "Отмена"
+    },
+    dialog: {
+        accept_quests_title: "Принять квесты",
+        accept_quests_desc: "Принять {count} квестов? Это действие зарегистрирует вас в этих квестах.",
+        complete_quests_title: "Завершить видео квесты",
+        complete_quests_desc: "Добавить {count} видео квестов в очередь? Они будут обработаны по очереди.",
+        cancel: "Отмена",
+        accept: "Принять",
+        start: "Начать"
+    }
+}

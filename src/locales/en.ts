@@ -1,0 +1,132 @@
+export default {
+    general: {
+        title: "Discord Quest Helper",
+        subtitle: "Dashboard for managing your Discord Quests",
+        welcome: "Welcome to Discord Quest Helper",
+        login_prompt: "Login with your Discord account to start managing your quests.",
+        theme: {
+            light: "Light",
+            dark: "Dark",
+            system: "System"
+        },
+        language: "Language",
+        logout: "Logout",
+        loading: "Loading...",
+        refresh: "Refresh",
+        stop: "Stop",
+        clear: "Clear",
+        clear_all: "Clear All"
+    },
+    auth: {
+        auto_detect: "Auto Detect Token",
+        paste_token: "Paste Discord Token",
+        login: "Login",
+        or: "or",
+        authenticated_as: "Authenticated as"
+    },
+    nav: {
+        home: "Home",
+        game_simulator: "Game Simulator",
+        settings: "Settings"
+    },
+    home: {
+        welcome: "Welcome back, {name}",
+        no_account: "No account selected",
+        available_quests: "Available Quests",
+        filters: "Filters",
+        accept_all: "Accept All",
+        complete_all_video: "Complete All Video Quests",
+        processing_queue: "Processing Queue",
+        remaining: "remaining",
+        accept_quest: "Accept Quest",
+        stop_quest: "Stop Quest",
+        complete_quest: "Complete Quest"
+    },
+    quest: {
+        progress: "Progress",
+        required: "required",
+        expires: "Expires",
+        in_game_rewards: "In-Game Rewards",
+        discord_rewards: "Discord Rewards",
+        active_progress: "Active Quest Progress",
+        no_active: "No active quest",
+        up_next: "Up Next"
+    },
+    filter: {
+        status: "Status",
+        type: "Type",
+        reward: "Reward",
+        not_accepted: "Not Accepted",
+        in_progress: "In Progress",
+        pending_claim: "Pending Claim",
+        claimed: "Claimed",
+        video: "Video",
+        watch: "Watch",
+        play: "Play",
+        activity: "Activity",
+        stream_play: "Stream/Play",
+        orbs: "Orbs",
+        decoration: "Decoration",
+        in_game: "In-Game"
+    },
+    settings: {
+        title: "Settings",
+        discord_token: "Discord Token",
+        discord_token_desc: "Authenticate with Discord to access quests. Auto-detection tries to read from local Discord installation.",
+        quest_config: "Quest Configuration",
+        quest_config_desc: "Adjust how the completion automation behaves.",
+        completion_speed: "Completion Speed",
+        speed_normal: "Normal",
+        speed_fast: "Fast",
+        speed_hint: "1 sec real = 1 sec video",
+        request_interval: "Request Interval",
+        interval_fast: "Fast",
+        interval_slow: "Slow",
+        interval_hint: "Higher = safer against rate limits",
+        about: "About",
+        about_desc: "A tool to help complete Discord quests automatically.",
+        about_warning: "Warning: Using this tool may violate Discord's Terms of Service. Use at your own risk.",
+        credits: "Credits",
+        credits_desc: "Based on work by:",
+        tech_stack: "Tech Stack"
+    },
+    game_sim: {
+        title: "Game Simulator",
+        description: "Simulate running a game to complete Stream/Play quests without actually running the game.",
+        detectables: "Detectable Games",
+        select_title: "Select Game",
+        search: "Search games...",
+        no_games: "No games found",
+        start_simulate: "Start Simulating",
+        stop_simulate: "Stop Simulating",
+        simulating: "Simulating",
+        select_game: "Select a game from the list to start",
+        not_simulating: "Not simulating any game",
+        config_title: "Game Configuration",
+        config_desc: "Configure and run the simulated game.",
+        select_exe: "Select Executable",
+        install_path: "Installation Path",
+        create_game: "Create Simulated Game",
+        creating: "Creating...",
+        run_game: "Run Game",
+        starting: "Starting...",
+        stop: "Stop",
+        stopping: "Stopping...",
+        exe_count: "{count} executables",
+        showing_top: "Showing top {count} games. Search to find more."
+    },
+    account: {
+        select_title: "Select Account",
+        select_desc: "Found multiple valid Discord tokens. Please select which account to use:",
+        cancel: "Cancel"
+    },
+    dialog: {
+        accept_quests_title: "Accept Quests",
+        accept_quests_desc: "Accept {count} quests? This action will enroll you in these quests.",
+        complete_quests_title: "Complete Video Quests",
+        complete_quests_desc: "Add {count} video quests to the completion queue? This will process them one by one.",
+        cancel: "Cancel",
+        accept: "Accept",
+        start: "Start"
+    }
+}

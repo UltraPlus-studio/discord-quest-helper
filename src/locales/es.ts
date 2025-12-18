@@ -1,0 +1,132 @@
+export default {
+    general: {
+        title: "Discord Quest Helper",
+        subtitle: "Panel de gestión de misiones de Discord",
+        welcome: "Bienvenido a Discord Quest Helper",
+        login_prompt: "Inicia sesión con tu cuenta de Discord para comenzar a gestionar tus misiones.",
+        theme: {
+            light: "Claro",
+            dark: "Oscuro",
+            system: "Sistema"
+        },
+        language: "Idioma",
+        logout: "Cerrar sesión",
+        loading: "Cargando...",
+        refresh: "Actualizar",
+        stop: "Detener",
+        clear: "Limpiar",
+        clear_all: "Limpiar todo"
+    },
+    auth: {
+        auto_detect: "Detectar token automáticamente",
+        paste_token: "Pegar token de Discord",
+        login: "Iniciar sesión",
+        or: "o",
+        authenticated_as: "Autenticado como"
+    },
+    nav: {
+        home: "Inicio",
+        game_simulator: "Simulador de juegos",
+        settings: "Configuración"
+    },
+    home: {
+        welcome: "Bienvenido de nuevo, {name}",
+        no_account: "No hay cuenta seleccionada",
+        available_quests: "Misiones disponibles",
+        filters: "Filtros",
+        accept_all: "Aceptar todas",
+        complete_all_video: "Completar todas las misiones de video",
+        processing_queue: "Cola de procesamiento",
+        remaining: "restantes",
+        accept_quest: "Aceptar misión",
+        stop_quest: "Detener misión",
+        complete_quest: "Completar misión"
+    },
+    quest: {
+        progress: "Progreso",
+        required: "requerido",
+        expires: "Expira",
+        in_game_rewards: "Recompensas del juego",
+        discord_rewards: "Recompensas de Discord",
+        active_progress: "Progreso de misión activa",
+        no_active: "Sin misión activa",
+        up_next: "Siguiente"
+    },
+    filter: {
+        status: "Estado",
+        type: "Tipo",
+        reward: "Recompensa",
+        not_accepted: "No aceptada",
+        in_progress: "En progreso",
+        pending_claim: "Pendiente de reclamar",
+        claimed: "Reclamada",
+        video: "Video",
+        watch: "Ver",
+        play: "Jugar",
+        activity: "Actividad",
+        stream_play: "Stream/Jugar",
+        orbs: "Orbes",
+        decoration: "Decoración",
+        in_game: "En el juego"
+    },
+    settings: {
+        title: "Configuración",
+        discord_token: "Token de Discord",
+        discord_token_desc: "Autentícate con Discord para acceder a las misiones. La detección automática intenta leer desde la instalación local de Discord.",
+        quest_config: "Configuración de misiones",
+        quest_config_desc: "Ajusta el comportamiento de la automatización de completado.",
+        completion_speed: "Velocidad de completado",
+        speed_normal: "Normal",
+        speed_fast: "Rápido",
+        speed_hint: "1 seg real = 1 seg de video",
+        request_interval: "Intervalo de solicitud",
+        interval_fast: "Rápido",
+        interval_slow: "Lento",
+        interval_hint: "Mayor = más seguro contra límites de tasa",
+        about: "Acerca de",
+        about_desc: "Una herramienta para ayudar a completar misiones de Discord automáticamente.",
+        about_warning: "Advertencia: El uso de esta herramienta puede violar los Términos de Servicio de Discord. Úsala bajo tu propio riesgo.",
+        credits: "Créditos",
+        credits_desc: "Basado en el trabajo de:",
+        tech_stack: "Stack tecnológico"
+    },
+    game_sim: {
+        title: "Simulador de juegos",
+        description: "Simula la ejecución de un juego para completar misiones de Stream/Jugar sin ejecutar realmente el juego.",
+        detectables: "Juegos detectables",
+        select_title: "Seleccionar juego",
+        search: "Buscar juegos...",
+        no_games: "No se encontraron juegos",
+        start_simulate: "Iniciar simulación",
+        stop_simulate: "Detener simulación",
+        simulating: "Simulando",
+        select_game: "Selecciona un juego de la lista para comenzar",
+        not_simulating: "No se está simulando ningún juego",
+        config_title: "Configuración del juego",
+        config_desc: "Configura y ejecuta el juego simulado.",
+        select_exe: "Seleccionar ejecutable",
+        install_path: "Ruta de instalación",
+        create_game: "Crear juego simulado",
+        creating: "Creando...",
+        run_game: "Ejecutar juego",
+        starting: "Iniciando...",
+        stop: "Detener",
+        stopping: "Deteniendo...",
+        exe_count: "{count} ejecutables",
+        showing_top: "Mostrando los {count} mejores juegos. Busca para encontrar más."
+    },
+    account: {
+        select_title: "Seleccionar cuenta",
+        select_desc: "Se encontraron varios tokens de Discord válidos. Selecciona qué cuenta usar:",
+        cancel: "Cancelar"
+    },
+    dialog: {
+        accept_quests_title: "Aceptar misiones",
+        accept_quests_desc: "¿Aceptar {count} misiones? Esta acción te inscribirá en estas misiones.",
+        complete_quests_title: "Completar misiones de video",
+        complete_quests_desc: "¿Agregar {count} misiones de video a la cola de completado? Se procesarán una por una.",
+        cancel: "Cancelar",
+        accept: "Aceptar",
+        start: "Iniciar"
+    }
+}
