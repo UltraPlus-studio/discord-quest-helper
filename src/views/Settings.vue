@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
-import { Eye, EyeOff, Loader2, CheckCircle2 } from 'lucide-vue-next'
+import { Eye, EyeOff, Loader2, CheckCircle2, Copy, Check } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -17,6 +17,15 @@ const questsStore = useQuestsStore()
 const versionStore = useVersionStore()
 const manualToken = ref('')
 const showToken = ref(false)
+const copied = ref(false)
+
+async function copyPath() {
+  if (cachePath.value) {
+    await navigator.clipboard.writeText(cachePath.value)
+    copied.value = true
+    setTimeout(() => { copied.value = false }, 2000)
+  }
+}
 
 async function handleManualLogin() {
   if (manualToken.value) {
@@ -43,19 +52,26 @@ async function openExternal(url: string) {
 }
 
 async function openCacheDir() {
-  const docDir = await documentDir()
-  const path = `${docDir}\\DiscordQuestGames`
+  const path = cachePath.value
+  console.log('Attempting to open cache directory:', path)
+  
+  if (!path) {
+    console.error('Cache path is empty!')
+    return
+  }
   
   try {
     // Try to create it recursively (will not fail if exists)
     await mkdir(path, { recursive: true })
+    console.log('Directory created/verified:', path)
     
     // Use custom Rust command to ensure explorer opens
     await invoke('open_in_explorer', { path })
   } catch (e) {
     console.error('Failed to open cache dir:', e)
-    // Fallback using same custom command
+    // Fallback to documents directory
     try {
+        const docDir = await documentDir()
         await invoke('open_in_explorer', { path: docDir })
     } catch (e2) {
         console.error('Fallback failed:', e2)
@@ -68,7 +84,9 @@ import { onMounted } from 'vue'
 
 onMounted(async () => {
   const docDir = await documentDir()
-  cachePath.value = `${docDir}\\DiscordQuestGames`
+  // Remove trailing backslash if present, then append subdirectory
+  const normalizedDocDir = docDir.replace(/[\\/]+$/, '')
+  cachePath.value = `${normalizedDocDir}\\DiscordQuestGames`
 })
 </script>
 
@@ -199,9 +217,13 @@ onMounted(async () => {
         </CardHeader>
         <CardContent>
           <div class="space-y-4">
-             <div class="p-3 bg-muted/50 rounded-lg text-xs font-mono break-all" v-if="cachePath">
-               {{ cachePath }}
-             </div>
+             <div class="flex items-center gap-2 p-3 bg-muted/50 rounded-lg" v-if="cachePath">
+                <code class="flex-1 text-xs font-mono break-all">{{ cachePath }}</code>
+                <Button variant="ghost" size="icon" class="h-7 w-7 shrink-0" @click="copyPath">
+                  <Check v-if="copied" class="w-3.5 h-3.5 text-green-500" />
+                  <Copy v-else class="w-3.5 h-3.5" />
+                </Button>
+              </div>
              <Button variant="outline" @click="openCacheDir">
                <FolderOpen class="w-4 h-4 mr-2" />
                {{ t('settings.open_cache_dir') }}
@@ -228,40 +250,43 @@ onMounted(async () => {
                 </span>
               </p>
              <p>
-               {{ t('settings.about_desc') }}
-             </p>
-             <p>
-               Project: 
-               <a href="#" @click.prevent="openExternal('https://github.com/Masterain98/discord-quest-helper')" class="text-primary hover:underline">
-                 GitHub
-               </a>
-             </p>
-             <p class="text-yellow-500/90 dark:text-yellow-400">
-               ⚠️ {{ t('settings.about_warning') }}
-             </p>
-           </CardContent>
-         </Card>
-         
-          <Card>
-            <CardHeader>
-              <CardTitle class="text-lg">{{ t('settings.credits') }}</CardTitle>
-            </CardHeader>
-            <CardContent class="text-sm text-muted-foreground space-y-4">
-              <div>
-                <p class="font-medium text-foreground mb-1">{{ t('settings.credits_desc') }}</p>
-                <ul class="list-disc list-inside">
-                  <li>
-                    <a href="#" @click.prevent="openExternal('https://github.com/markterence/discord-quest-completer')" class="hover:underline">
-                      markterence/discord-quest-completer
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" @click.prevent="openExternal('https://github.com/power0matin/discord-quest-auto-completer')" class="hover:underline">
-                      power0matin/discord-quest-auto-completer
-                    </a>
-                  </li>
-                </ul>
-              </div>
+                {{ t('settings.about_desc') }}
+              </p>
+              <a href="#" @click.prevent="openExternal('https://github.com/Masterain98/discord-quest-helper')" class="inline-flex items-center gap-2 hover:opacity-80 transition-opacity">
+                <img src="/icons/github-mark.svg" alt="GitHub" class="w-5 h-5 dark:hidden" />
+                <img src="/icons/github-mark-white.svg" alt="GitHub" class="w-5 h-5 hidden dark:block" />
+                <span class="text-primary hover:underline">Masterain98/discord-quest-helper</span>
+              </a>
+              <p class="text-yellow-500/90 dark:text-yellow-400">
+                ⚠️ {{ t('settings.about_warning') }}
+              </p>
+            </CardContent>
+          </Card>
+          
+           <Card>
+             <CardHeader>
+               <CardTitle class="text-lg">{{ t('settings.credits') }}</CardTitle>
+             </CardHeader>
+             <CardContent class="text-sm text-muted-foreground space-y-4">
+               <div>
+                 <p class="font-medium text-foreground mb-2">{{ t('settings.credits_desc') }}</p>
+                 <ul class="space-y-2">
+                   <li>
+                     <a href="#" @click.prevent="openExternal('https://github.com/markterence/discord-quest-completer')" class="inline-flex items-center gap-2 hover:opacity-80 transition-opacity">
+                       <img src="/icons/github-mark.svg" alt="GitHub" class="w-4 h-4 dark:hidden" />
+                       <img src="/icons/github-mark-white.svg" alt="GitHub" class="w-4 h-4 hidden dark:block" />
+                       <span class="hover:underline">markterence/discord-quest-completer</span>
+                     </a>
+                   </li>
+                   <li>
+                     <a href="#" @click.prevent="openExternal('https://github.com/power0matin/discord-quest-auto-completer')" class="inline-flex items-center gap-2 hover:opacity-80 transition-opacity">
+                       <img src="/icons/github-mark.svg" alt="GitHub" class="w-4 h-4 dark:hidden" />
+                       <img src="/icons/github-mark-white.svg" alt="GitHub" class="w-4 h-4 hidden dark:block" />
+                       <span class="hover:underline">power0matin/discord-quest-auto-completer</span>
+                     </a>
+                   </li>
+                 </ul>
+               </div>
               <div>
                 <p class="font-medium text-foreground mb-1">{{ t('settings.tech_stack') }}</p>
                 <ul class="list-disc list-inside">
