@@ -91,7 +91,14 @@ export default {
         about_warning: "Предупреждение: Использование этого инструмента может нарушать Условия использования Discord. Используйте на свой страх и риск.",
         credits: "Благодарности",
         credits_desc: "Основано на работе:",
-        tech_stack: "Технологии"
+        tech_stack: "Технологии",
+        version_latest: "Последняя",
+        version_checking: "Проверка..."
+    },
+    version: {
+        update_available: "Доступна новая версия!",
+        update_desc: "Версия {version} доступна. Текущая версия: {current}.",
+        download: "Скачать обновление"
     },
     game_sim: {
         title: "Симулятор игр",

@@ -91,7 +91,14 @@ export default {
         about_warning: "Advertencia: El uso de esta herramienta puede violar los Términos de Servicio de Discord. Úsala bajo tu propio riesgo.",
         credits: "Créditos",
         credits_desc: "Basado en el trabajo de:",
-        tech_stack: "Stack tecnológico"
+        tech_stack: "Stack tecnológico",
+        version_latest: "Última versión",
+        version_checking: "Comprobando..."
+    },
+    version: {
+        update_available: "¡Nueva versión disponible!",
+        update_desc: "La versión {version} está disponible. Tu versión actual es {current}.",
+        download: "Descargar actualización"
     },
     game_sim: {
         title: "Simulador de juegos",

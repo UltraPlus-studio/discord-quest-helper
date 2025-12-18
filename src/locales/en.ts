@@ -91,7 +91,14 @@ export default {
         about_warning: "Warning: Using this tool may violate Discord's Terms of Service. Use at your own risk.",
         credits: "Credits",
         credits_desc: "Based on work by:",
-        tech_stack: "Tech Stack"
+        tech_stack: "Tech Stack",
+        version_latest: "Latest",
+        version_checking: "Checking..."
+    },
+    version: {
+        update_available: "A new version is available!",
+        update_desc: "Version {version} is now available. You are currently on {current}.",
+        download: "Download Update"
     },
     game_sim: {
         title: "Game Simulator",

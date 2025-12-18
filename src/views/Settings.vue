@@ -2,16 +2,19 @@
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useQuestsStore } from '@/stores/quests'
+import { useVersionStore } from '@/stores/version'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Eye, EyeOff, Loader2 } from 'lucide-vue-next'
+import { Badge } from '@/components/ui/badge'
+import { Eye, EyeOff, Loader2, CheckCircle2 } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const authStore = useAuthStore()
 const questsStore = useQuestsStore()
+const versionStore = useVersionStore()
 const manualToken = ref('')
 const showToken = ref(false)
 
@@ -21,8 +24,7 @@ async function handleManualLogin() {
   }
 }
 
-// Version management
-const appVersion = ref('Dev')
+// Cache path
 const cachePath = ref('')
 
 // External link handling
@@ -65,21 +67,8 @@ async function openCacheDir() {
 import { onMounted } from 'vue'
 
 onMounted(async () => {
-    const docDir = await documentDir()
-    cachePath.value = `${docDir}\\DiscordQuestGames`
-// ... existing onMounted logic ...
-  try {
-    // In dev, this might 404 if not generated, handling gracefully
-    const res = await fetch('/version.txt')
-    if (res.ok) {
-      const text = await res.text()
-      if (text) {
-        appVersion.value = text.trim()
-      }
-    }
-  } catch (e) {
-    // Keep default 'Dev'
-  }
+  const docDir = await documentDir()
+  cachePath.value = `${docDir}\\DiscordQuestGames`
 })
 </script>
 
@@ -228,7 +217,16 @@ onMounted(async () => {
              <CardTitle class="text-lg">{{ t('settings.about') }}</CardTitle>
            </CardHeader>
            <CardContent class="text-sm text-muted-foreground space-y-2">
-             <p>Discord Quest Helper v{{ appVersion }}</p>
+              <p class="flex items-center gap-2">
+                <span>Discord Quest Helper v{{ versionStore.currentVersion }}</span>
+                <Badge v-if="versionStore.isLatest" variant="outline" class="gap-1 text-green-600 border-green-600/50">
+                  <CheckCircle2 class="w-3 h-3" />
+                  {{ t('settings.version_latest') }}
+                </Badge>
+                <span v-else-if="versionStore.isChecking" class="text-xs text-muted-foreground">
+                  {{ t('settings.version_checking') }}
+                </span>
+              </p>
              <p>
                {{ t('settings.about_desc') }}
              </p>

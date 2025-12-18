@@ -91,7 +91,14 @@ export default {
         about_warning: "警告：このツールの使用はDiscordの利用規約に違反する可能性があります。自己責任でご使用ください。",
         credits: "クレジット",
         credits_desc: "以下の作品に基づいています：",
-        tech_stack: "技術スタック"
+        tech_stack: "技術スタック",
+        version_latest: "最新版",
+        version_checking: "確認中..."
+    },
+    version: {
+        update_available: "新しいバージョンが利用可能です！",
+        update_desc: "バージョン {version} が利用可能です。現在のバージョンは {current} です。",
+        download: "アップデートをダウンロード"
     },
     game_sim: {
         title: "ゲームシミュレーター",

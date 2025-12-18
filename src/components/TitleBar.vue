@@ -2,8 +2,10 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { Minus, Square, X, Copy } from 'lucide-vue-next'
+import { useVersionStore } from '@/stores/version'
 
 const appWindow = getCurrentWindow()
+const versionStore = useVersionStore()
 const isMaximized = ref(false)
 let unlisten: (() => void) | null = null
 
@@ -54,7 +56,9 @@ async function handleDragStart(e: MouseEvent) {
       @mousedown="handleDragStart"
     >
         <img src="/icons/logo.png" alt="logo" class="w-4 h-4 pointer-events-none" />
-        <span class="text-xs font-medium text-muted-foreground pointer-events-none">Discord Quest Helper</span>
+        <span class="text-xs font-medium text-muted-foreground pointer-events-none">
+          Discord Quest Helper <span class="opacity-70 ml-1">v{{ versionStore.currentVersion }}</span>
+        </span>
     </div>
 
     <div class="flex h-full">

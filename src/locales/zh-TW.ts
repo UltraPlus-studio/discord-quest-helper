@@ -91,7 +91,14 @@ export default {
         about_warning: "警告：使用此工具可能違反 Discord 服務條款。請自行承擔風險。",
         credits: "致謝",
         credits_desc: "基於以下專案：",
-        tech_stack: "技術栈"
+        tech_stack: "技術栈",
+        version_latest: "最新版本",
+        version_checking: "檢查中..."
+    },
+    version: {
+        update_available: "發現新版本！",
+        update_desc: "版本 {version} 已發布，當前版本為 {current}。",
+        download: "下載更新"
     },
     game_sim: {
         title: "遊戲模擬",

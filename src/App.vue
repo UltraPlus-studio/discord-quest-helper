@@ -8,6 +8,7 @@ import TitleBar from './components/TitleBar.vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useAuthStore } from '@/stores/auth'
+import { useVersionStore } from '@/stores/version'
 import type { ExtractedAccount } from '@/api/tauri'
 import { useI18n } from 'vue-i18n'
 import { Moon, Sun, Loader2, Languages } from 'lucide-vue-next'
@@ -120,6 +121,10 @@ onMounted(() => {
     isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
   }
   updateTheme()
+  
+  // Check for updates
+  const versionStore = useVersionStore()
+  versionStore.initialize()
 })
 </script>
 

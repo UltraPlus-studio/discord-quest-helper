@@ -91,7 +91,14 @@ export default {
         about_warning: "경고: 이 도구의 사용은 Discord 서비스 약관을 위반할 수 있습니다. 본인의 책임 하에 사용하세요.",
         credits: "크레딧",
         credits_desc: "다음 작업을 기반으로 함:",
-        tech_stack: "기술 스택"
+        tech_stack: "기술 스택",
+        version_latest: "최신 버전",
+        version_checking: "확인 중..."
+    },
+    version: {
+        update_available: "새 버전이 있습니다!",
+        update_desc: "버전 {version}을(를) 사용할 수 있습니다. 현재 버전은 {current}입니다.",
+        download: "업데이트 다운로드"
     },
     game_sim: {
         title: "게임 시뮬레이터",

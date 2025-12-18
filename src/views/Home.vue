@@ -1,5 +1,27 @@
 <template>
   <div class="home-view fade-in">
+    <!-- Update Available Banner -->
+    <div 
+      v-if="versionStore.hasUpdate && versionStore.latestRelease" 
+      class="mb-6 p-4 bg-primary/10 border border-primary/30 rounded-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+    >
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+          <ArrowUpCircle class="w-5 h-5 text-primary" />
+        </div>
+        <div>
+          <p class="font-semibold text-primary">{{ t('version.update_available') }}</p>
+          <p class="text-sm text-muted-foreground">
+            {{ t('version.update_desc', { version: versionStore.latestRelease.tag_name, current: versionStore.currentVersion }) }}
+          </p>
+        </div>
+      </div>
+      <Button @click="openUpdatePage" class="gap-2 shrink-0">
+        <ExternalLink class="w-4 h-4" />
+        {{ t('version.download') }}
+      </Button>
+    </div>
+
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div class="lg:col-span-2 space-y-6">
         <!-- Toolbar -->
@@ -263,6 +285,7 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useQuestsStore } from '@/stores/quests'
+import { useVersionStore } from '@/stores/version'
 import QuestCard from '@/components/QuestCard.vue'
 import QuestProgress from '@/components/QuestProgress.vue'
 import type { Quest } from '@/api/tauri'
@@ -281,12 +304,21 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { cn } from '@/lib/utils'
-import { RotateCw, Filter, AlertCircle, Loader2 } from 'lucide-vue-next'
+import { RotateCw, Filter, AlertCircle, Loader2, ArrowUpCircle, ExternalLink } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
+import { open } from '@tauri-apps/plugin-shell'
 
 const { t } = useI18n()
 const authStore = useAuthStore()
 const questsStore = useQuestsStore()
+const versionStore = useVersionStore()
+
+// Open update page in browser
+async function openUpdatePage() {
+  if (versionStore.latestRelease?.html_url) {
+    await open(versionStore.latestRelease.html_url)
+  }
+}
 
 const statusFilterOptions = computed(() => ({
   notAccepted: t('filter.not_accepted'),
