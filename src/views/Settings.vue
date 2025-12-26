@@ -29,6 +29,11 @@ const manualToken = ref('')
 const showToken = ref(false)
 const copied = ref(false)
 
+// Emit for tab navigation
+const emit = defineEmits<{
+  (e: 'navigate-to-home'): void
+}>()
+
 // Heartbeat Safety Warning Logic
 const showHeartbeatWarning = ref(false)
 
@@ -47,6 +52,14 @@ async function copyPath() {
     await navigator.clipboard.writeText(cachePath.value)
     copied.value = true
     setTimeout(() => { copied.value = false }, 2000)
+  }
+}
+
+async function handleAutoDetect() {
+  await authStore.tryAutoDetect()
+  // If multiple accounts were detected, navigate to Home
+  if (authStore.detectedAccounts.length > 0) {
+    emit('navigate-to-home')
   }
 }
 
@@ -134,7 +147,7 @@ onMounted(async () => {
           
           <div v-else class="space-y-4">
              <Button 
-               @click="authStore.tryAutoDetect" 
+               @click="handleAutoDetect" 
                :disabled="authStore.loading"
                variant="secondary"
                class="w-full sm:w-auto"

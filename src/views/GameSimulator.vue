@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { useAuthStore } from '@/stores/auth'
 import GameSelector from '@/components/GameSelector.vue'
 import type { DetectableGame } from '@/api/tauri'
 import { createSimulatedGame, runSimulatedGame, stopSimulatedGame, connectToDiscordRpc } from '@/api/tauri'
@@ -14,7 +13,6 @@ import { Loader2, Play, Square, Hammer } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
-const authStore = useAuthStore()
 
 const selectedGame = ref<DetectableGame | null>(null)
 const selectedExecutable = ref('')
@@ -122,11 +120,8 @@ async function handleStopGame() {
        <h2 class="text-2xl font-bold tracking-tight">{{ t('game_sim.title') }}</h2>
     </div>
     
-    <div v-if="!authStore.user" class="text-center py-12 text-muted-foreground">
-      Please login to use game simulator
-    </div>
     
-    <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <GameSelector @select="selectGame" />
       
       <Card>
