@@ -141,7 +141,7 @@ jobs:
         with:
           tag_name: ${{ env.version }}
           name: ${{ env.version }}
-          generate_release_notes: true
+          body_path: ./public/version-desc.txt
           files: |
             ./build/${{ env.win_build_release_dir }}.zip
           prerelease: false
