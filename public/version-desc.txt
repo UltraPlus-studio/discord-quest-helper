@@ -1,0 +1,20 @@
+# What's New
+
+## New Feature
+- Direct Heartbeat Mode for Play/Game quests
+    - Complete Play/Game quests **without running a simulated game**, sends heartbeat packets directly to Discord.
+
+## Improvements
+- Settings and Game Simulator pages now accessible without login
+- Added "Report Issue" and "Website" buttons in Settings
+- Auto token detection now auto-navigates when multiple accounts found
+
+---
+
+# Quick Start
+- Extract the archive
+- Run `discord-quest-helper.exe` while Discord is running in the background
+- Click `Auto Detect Token` to detect your Discord accounts
+- Filter quests and click `Start` to finish the quest
+
+⭐ **If you find this helpful, please give it a star!** ⭐
