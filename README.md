@@ -1,10 +1,12 @@
-# Discord Quest Helper
-
 <div align="center">
+
+# Discord Quest Helper
 
 **🎮 Automate your Discord Quests with one click**
 
 Complete Discord video, stream, and game quests automatically while you focus on what matters.
+
+⭐ **If you find this helpful, please give it a star!** ⭐
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Platform](https://img.shields.io/badge/platform-Windows-blue.svg)
@@ -14,22 +16,6 @@ Complete Discord video, stream, and game quests automatically while you focus on
 ![GitHub Release](https://img.shields.io/github/v/release/Masterain98/discord-quest-helper?label=latest%20release&color=41b883)
 
 </div>
-
-## 📸 Screenshots
-
-| Login | Home |
-|:-----:|:----:|
-| ![Login](https://discord-quest-helper.dal.ao/images/login.png) | ![Home](https://discord-quest-helper.dal.ao/images/home1.png) |
-
-| Multi-Account | Game Simulator |
-|:-------------:|:--------------:|
-| ![Multi-Account](https://discord-quest-helper.dal.ao/images/multi-account.png) | ![Game Simulator](https://discord-quest-helper.dal.ao/images/game-simulator.png) |
-
-| Quest Progress | Settings |
-|:--------------:|:--------:|
-| ![Quest Progress](https://discord-quest-helper.dal.ao/images/home2.png) | ![Settings](https://discord-quest-helper.dal.ao/images/settings.png) |
-
----
 
 ## 🚀 Quick Start
 
@@ -55,8 +41,6 @@ Complete Discord video, stream, and game quests automatically while you focus on
 - **Video/Stream**: Click "Start Quest" on any incomplete quest
 - **Game**: Use Game Simulator tab → Select game → Create & Run simulated game
 
----
-
 ## ✨ Features
 
 - ⚡ **One-Click Login** — Automatically detects your Discord token, no scripts or technical steps needed
@@ -66,7 +50,19 @@ Complete Discord video, stream, and game quests automatically while you focus on
 - 👥 **Multi-Account Support** — Manage multiple Discord accounts seamlessly
 - 🌏 **Multi-language** — English, Chinese, Japanese, Korean, Russian, Spanish
 
----
+## 📸 Screenshots
+
+| Login | Home |
+|:-----:|:----:|
+| ![Login](https://discord-quest-helper.dal.ao/images/login.png) | ![Home](https://discord-quest-helper.dal.ao/images/home1.png) |
+
+| Multi-Account | Game Simulator |
+|:-------------:|:--------------:|
+| ![Multi-Account](https://discord-quest-helper.dal.ao/images/multi-account.png) | ![Game Simulator](https://discord-quest-helper.dal.ao/images/game-simulator.png) |
+
+| Quest Progress | Settings |
+|:--------------:|:--------:|
+| ![Quest Progress](https://discord-quest-helper.dal.ao/images/home2.png) | ![Settings](https://discord-quest-helper.dal.ao/images/settings.png) |
 
 ## 🏗️ Architecture
 
@@ -94,8 +90,6 @@ Complete Discord video, stream, and game quests automatically while you focus on
                     Discord API (discord.com/api/v9)
 ```
 
----
-
 ## 🔒 Security
 
 - **Tokens stored in memory only** — Never persisted to disk
@@ -104,8 +98,6 @@ Complete Discord video, stream, and game quests automatically while you focus on
 
 > [!CAUTION]
 > Using automation tools may violate Discord ToS and result in account suspension.
-
----
 
 ## 🤝 Contributing
 
@@ -116,13 +108,10 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for:
 - Code conventions
 - Pull request guidelines
 
----
-
 ## 📄 License
 
 MIT License — see [LICENSE](LICENSE) file.
 
----
 
 ## 🙏 Credits
 
