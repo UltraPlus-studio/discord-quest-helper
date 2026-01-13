@@ -161,20 +161,20 @@ jobs:
           
           # Package Windows build
           cd tauri-win-release
-          zip -r ../build/discord-quest-helper-win32-x64-${{ env.version }}.zip .
+          zip -r ../build/discord-quest-helper-Windows-x64-${{ env.version }}.zip .
           cd ..
           
           # Package macOS build (find the .dmg file)
           cd tauri-macos-arm64-release
           if [ -d "dmg" ]; then
-            cp dmg/*.dmg ../build/discord-quest-helper-darwin-arm64-${{ env.version }}.dmg
+            cp dmg/*.dmg ../build/discord-quest-helper-MacOS-arm64-${{ env.version }}.dmg
           elif [ -d "macos" ]; then
-            zip -r ../build/discord-quest-helper-darwin-arm64-${{ env.version }}.zip macos/
+            zip -r ../build/discord-quest-helper-MacOS-arm64-${{ env.version }}.zip macos/
           fi
           cd ..
           
-          echo "win_build_release_dir=discord-quest-helper-win32-x64-${{ env.version }}" >> $GITHUB_ENV
-          echo "macos_build_release=discord-quest-helper-darwin-arm64-${{ env.version }}" >> $GITHUB_ENV
+          echo "win_build_release_dir=discord-quest-helper-Windows-x64-${{ env.version }}" >> $GITHUB_ENV
+          echo "macos_build_release=discord-quest-helper-MacOS-arm64-${{ env.version }}" >> $GITHUB_ENV
 
       - name: Create and Upload Release
         id: create_release
