@@ -1,20 +1,21 @@
 # What's New
 
-## New Feature
-- Direct Heartbeat Mode for Play/Game quests
-    - Complete Play/Game quests **without running a simulated game**, sends heartbeat packets directly to Discord.
-
-## Improvements
-- Settings and Game Simulator pages now accessible without login
-- Added "Report Issue" and "Website" buttons in Settings
-- Auto token detection now auto-navigates when multiple accounts found
+- Add MacOS Apple Silicon client support
+- Bump dependencies to latest
 
 ---
 
 # Quick Start
-- Extract the archive
-- Run `discord-quest-helper.exe` while Discord is running in the background
-- Click `Auto Detect Token` to detect your Discord accounts
-- Filter quests and click `Start` to finish the quest
+
+## Windows
+1. Extract the archive
+2. Run `discord-quest-helper.exe` while Discord is running in the background
+3. Click `Auto Detect Token` to detect your Discord accounts
+4. Filter quests and click `Start` to finish the quest
+
+## MacOS
+1. Download the latest `.dmg` Filter
+2. Open the `.dmg` file and drag the app to your Applications folder
+3. Run `Discord Quest Helper` from Applications
 
 ⭐ **If you find this helpful, please give it a star!** ⭐
