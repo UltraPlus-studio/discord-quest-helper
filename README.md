@@ -9,7 +9,7 @@ Complete Discord video, stream, and game quests automatically while you focus on
 ⭐ **If you find this helpful, please give it a star!** ⭐
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Platform](https://img.shields.io/badge/platform-Windows-blue.svg)
+![Platform](https://img.shields.io/badge/platform-Windows%20|%20macOS-blue.svg)
 ![Tauri](https://img.shields.io/badge/tauri-2.0-blue.svg)
 ![Vue](https://img.shields.io/badge/vue-3.5-green.svg)
 ![Rust](https://img.shields.io/badge/rust-1.70+-orange.svg)
@@ -24,9 +24,19 @@ Complete Discord video, stream, and game quests automatically while you focus on
 
 ### Download & Run
 
+**Windows:**
 1. Go to [GitHub Releases](https://github.com/Masterain98/discord-quest-helper/releases) and download the latest `.zip` file
 2. Extract the archive to any folder
 3. Run `Discord Quest Helper.exe`
+
+**macOS:**
+1. Go to [GitHub Releases](https://github.com/Masterain98/discord-quest-helper/releases) and download the latest `.dmg` file
+2. Open the `.dmg` file and drag the app to your Applications folder
+3. Run the following command in Terminal to remove the quarantine attribute:
+   ```bash
+   xattr -cr /Applications/Discord\ Quest\ Helper.app
+   ```
+4. Run `Discord Quest Helper` from Applications
 
 ### Login
 
@@ -94,7 +104,7 @@ Complete Discord video, stream, and game quests automatically while you focus on
 
 - **Tokens stored in memory only** — Never persisted to disk
 - **HTTPS for all requests** — Secure API communication
-- **Windows DPAPI encryption** — Only current user can decrypt
+- **Platform-native encryption** — Windows DPAPI / macOS Keychain
 
 > [!CAUTION]
 > Using automation tools may violate Discord ToS and result in account suspension.
