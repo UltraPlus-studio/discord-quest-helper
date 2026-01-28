@@ -36,7 +36,9 @@ export default {
         filters: "Filtros",
         accept_all: "Aceptar todas",
         complete_all_video: "Completar todas las misiones de video",
+        start_all_play: "Iniciar todas Play",
         processing_queue: "Cola de procesamiento",
+        processing_play_queue: "Cola Play",
         remaining: "restantes",
         accept_quest: "Aceptar misión",
         stop_quest: "Detener misión",
@@ -154,6 +156,8 @@ export default {
         accept_quests_desc: "¿Aceptar {count} misiones? Esta acción te inscribirá en estas misiones.",
         complete_quests_title: "Completar misiones de video",
         complete_quests_desc: "¿Agregar {count} misiones de video a la cola de completado? Se procesarán una por una.",
+        start_all_play_title: "Iniciar todas las misiones Play",
+        start_all_play_desc: "¿Ejecutar {count} misiones Play una por una? La siguiente comenzará al terminar la anterior.",
         cancel: "Cancelar",
         accept: "Aceptar",
         start: "Iniciar"

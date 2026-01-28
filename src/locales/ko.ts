@@ -36,7 +36,9 @@ export default {
         filters: "필터",
         accept_all: "모두 수락",
         complete_all_video: "모든 비디오 퀘스트 완료",
+        start_all_play: "모든 플레이 시작",
         processing_queue: "처리 대기열",
+        processing_play_queue: "플레이 대기열 처리 중",
         remaining: "남음",
         accept_quest: "퀘스트 수락",
         stop_quest: "퀘스트 중지",
@@ -154,6 +156,8 @@ export default {
         accept_quests_desc: "{count}개의 퀘스트를 수락하시겠습니까? 이 퀘스트들에 등록됩니다.",
         complete_quests_title: "비디오 퀘스트 완료",
         complete_quests_desc: "{count}개의 비디오 퀘스트를 대기열에 추가하시겠습니까? 순서대로 처리됩니다.",
+        start_all_play_title: "모든 플레이 퀘스트 시작",
+        start_all_play_desc: "{count}개의 플레이 퀘스트를 순서대로 실행하시겠습니까? 하나 완료 후 다음이 자동으로 시작됩니다.",
         cancel: "취소",
         accept: "수락",
         start: "시작"

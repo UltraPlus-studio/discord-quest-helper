@@ -6,6 +6,7 @@ import ru from './locales/ru'
 import ja from './locales/ja'
 import ko from './locales/ko'
 import es from './locales/es'
+import th from './locales/th'
 
 // Detect default locale based on browser settings
 function getDefaultLocale(): string {
@@ -19,6 +20,7 @@ function getDefaultLocale(): string {
     if (browserLang.startsWith('ko')) return 'ko'
     if (browserLang.startsWith('ru')) return 'ru'
     if (browserLang.startsWith('es')) return 'es'
+    if (browserLang.startsWith('th')) return 'th'
     return 'en'
 }
 
@@ -33,7 +35,8 @@ const i18n = createI18n({
         ru,
         ja,
         ko,
-        es
+        es,
+        th
     }
 })
 

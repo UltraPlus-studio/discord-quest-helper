@@ -36,7 +36,9 @@ export default {
         filters: "Фильтры",
         accept_all: "Принять все",
         complete_all_video: "Завершить все видео квесты",
+        start_all_play: "Запустить все Play",
         processing_queue: "Очередь обработки",
+        processing_play_queue: "Очередь Play",
         remaining: "осталось",
         accept_quest: "Принять квест",
         stop_quest: "Остановить квест",
@@ -154,6 +156,8 @@ export default {
         accept_quests_desc: "Принять {count} квестов? Это действие зарегистрирует вас в этих квестах.",
         complete_quests_title: "Завершить видео квесты",
         complete_quests_desc: "Добавить {count} видео квестов в очередь? Они будут обработаны по очереди.",
+        start_all_play_title: "Запустить все Play квесты",
+        start_all_play_desc: "Запустить {count} Play квестов по очереди? Следующий начнётся после завершения предыдущего.",
         cancel: "Отмена",
         accept: "Принять",
         start: "Начать"

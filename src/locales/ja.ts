@@ -36,7 +36,9 @@ export default {
         filters: "フィルター",
         accept_all: "すべて受け入れる",
         complete_all_video: "すべての動画クエストを完了",
+        start_all_play: "すべてプレイを開始",
         processing_queue: "処理キュー",
+        processing_play_queue: "プレイキュー処理中",
         remaining: "残り",
         accept_quest: "クエストを受け入れる",
         stop_quest: "クエストを停止",
@@ -154,6 +156,8 @@ export default {
         accept_quests_desc: "{count}件のクエストを受け入れますか？これらのクエストに登録されます。",
         complete_quests_title: "動画クエストを完了",
         complete_quests_desc: "{count}件の動画クエストをキューに追加しますか？順番に処理されます。",
+        start_all_play_title: "すべてプレイクエストを開始",
+        start_all_play_desc: "{count}件のプレイクエストを順番に実行しますか？1つ完了すると次が自動で開始されます。",
         cancel: "キャンセル",
         accept: "受け入れる",
         start: "開始"

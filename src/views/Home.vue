@@ -207,6 +207,14 @@
             {{ t('home.complete_all_video') }} ({{ enrolledVideoCount }})
           </Button>
 
+          <Button 
+            v-if="enrolledPlayCount > 0 && !questsStore.isPlayQueueRunning && !questsStore.isQueueRunning"
+            @click="handleStartAllPlay"
+            variant="secondary"
+          >
+            {{ t('home.start_all_play') }} ({{ enrolledPlayCount }})
+          </Button>
+
           <div v-if="questsStore.isQueueRunning" class="flex items-center gap-3 px-4 py-2 bg-secondary/50 rounded-md text-sm border border-secondary">
              <span class="relative flex h-2.5 w-2.5">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -214,6 +222,15 @@
             </span>
              <span class="text-muted-foreground">{{ t('home.processing_queue') }}: {{ questsStore.questQueue.length }} {{ t('home.remaining') }}...</span>
              <Button variant="link" class="h-auto p-0 text-destructive" @click="questsStore.clearQueue">{{ t('general.stop') }}</Button>
+          </div>
+
+          <div v-if="questsStore.isPlayQueueRunning" class="flex items-center gap-3 px-4 py-2 bg-secondary/50 rounded-md text-sm border border-secondary">
+             <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+            </span>
+             <span class="text-muted-foreground">{{ t('home.processing_play_queue') }}: {{ questsStore.playQueue.length }} {{ t('home.remaining') }}...</span>
+             <Button variant="link" class="h-auto p-0 text-destructive" @click="questsStore.clearPlayQueue">{{ t('general.stop') }}</Button>
           </div>
         </div>
         
@@ -341,6 +358,35 @@
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
+
+    <!-- Start All Play Confirmation Dialog -->
+    <AlertDialog :open="showStartAllPlayDialog" @update:open="showStartAllPlayDialog = $event">
+      <AlertDialogContent class="max-w-[600px]">
+        <AlertDialogHeader>
+          <AlertDialogTitle>{{ t('dialog.start_all_play_title') }}</AlertDialogTitle>
+          <AlertDialogDescription>
+            <div class="space-y-4 my-4">
+              <p>{{ t('dialog.start_all_play_desc', { count: pendingStartAllPlayQuests.length }) }}</p>
+              <div class="border rounded-md p-3 bg-secondary/20 max-h-[300px] overflow-y-auto space-y-2 text-xs">
+                 <div v-for="q in pendingStartAllPlayQuests" :key="q.id" class="grid grid-cols-[1fr_auto] gap-x-4 gap-y-1">
+                    <span class="font-medium truncate text-foreground">{{ q.config.messages.quest_name }}</span>
+                    <span :class="cn('font-mono', getExpiryColor(q.config.expires_at))">
+                      {{ getExpiryText(q.config.expires_at) }}
+                    </span>
+                    <span class="text-xs text-muted-foreground col-span-2 truncate">
+                      {{ q.config.messages.game_title }} • ID: {{ q.id }}
+                    </span>
+                 </div>
+              </div>
+            </div>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>{{ t('dialog.cancel') }}</AlertDialogCancel>
+          <AlertDialogAction @click="confirmStartAllPlay">{{ t('dialog.start') }}</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   </div>
 </template>
 
@@ -404,8 +450,10 @@ const acceptingQuest = ref<string | null>(null)
 // Confirmation dialogs state
 const showAcceptAllDialog = ref(false)
 const showCompleteAllDialog = ref(false)
+const showStartAllPlayDialog = ref(false)
 const pendingAcceptQuests = ref<Quest[]>([])
 const pendingCompleteQuests = ref<Quest[]>([])
+const pendingStartAllPlayQuests = ref<Quest[]>([])
 
 // localStorage key for filters
 const FILTERS_STORAGE_KEY = 'questHelper_filters'
@@ -655,6 +703,23 @@ const enrolledVideoCount = computed(() => {
   }).length
 })
 
+function isPlayQuest(quest: Quest): boolean {
+  const taskConfig = quest.config.task_config_v2 || quest.config.task_config
+  if (!taskConfig?.tasks) return false
+  const taskKeys = Object.keys(taskConfig.tasks)
+  return taskKeys.some(key =>
+    key.includes('PLAY_ON_DESKTOP') || key.includes('PLAY_ON')
+  )
+}
+
+const enrolledPlayCount = computed(() => {
+  return filteredQuests.value.filter(q => {
+    if (!q.user_status || q.user_status.completed_at) return false
+    if (q.config.expires_at && new Date(q.config.expires_at) < new Date()) return false
+    return isPlayQuest(q)
+  }).length
+})
+
 function handleAcceptAll() {
   const toAccept = filteredQuests.value.filter(q => {
     // Check if not enrolled
@@ -705,6 +770,24 @@ function confirmCompleteAll() {
   questsStore.startQueue()
   showCompleteAllDialog.value = false
   pendingCompleteQuests.value = []
+}
+
+function handleStartAllPlay() {
+  const toPlay = filteredQuests.value.filter(q => {
+    if (!q.user_status || q.user_status.completed_at) return false
+    if (q.config.expires_at && new Date(q.config.expires_at) < new Date()) return false
+    return isPlayQuest(q)
+  })
+  if (toPlay.length === 0) return
+  pendingStartAllPlayQuests.value = toPlay
+  showStartAllPlayDialog.value = true
+}
+
+function confirmStartAllPlay() {
+  pendingStartAllPlayQuests.value.forEach(q => questsStore.addToPlayQueue(q))
+  questsStore.startPlayQueue()
+  showStartAllPlayDialog.value = false
+  pendingStartAllPlayQuests.value = []
 }
 
 function getExpiryColor(dateStr: string | null | undefined): string {

@@ -171,6 +171,7 @@ onMounted(() => {
               <DropdownMenuItem @click="setLanguage('ko')">한국어</DropdownMenuItem>
               <DropdownMenuItem @click="setLanguage('ru')">Русский</DropdownMenuItem>
               <DropdownMenuItem @click="setLanguage('es')">Español</DropdownMenuItem>
+              <DropdownMenuItem @click="setLanguage('th')">ไทย</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

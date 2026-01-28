@@ -109,7 +109,7 @@ export const useQuestsStore = defineStore('quests', () => {
     // Check completion
     if (quest.user_status?.completed_at) {
       console.log('Quest completed detected via polling, stopping game.')
-      stop()
+      stop('auto')
       return
     }
 
@@ -341,9 +341,10 @@ export const useQuestsStore = defineStore('quests', () => {
     }
   }
 
-  async function stop() {
+  async function stop(reason?: 'user' | 'auto') {
     stopping.value = true
-    console.trace('questsStore.stop() called')
+    const wasActiveQuestId = activeQuestId.value
+    console.trace('questsStore.stop() called', reason)
 
     stopProgressSimulation()
 
@@ -362,10 +363,16 @@ export const useQuestsStore = defineStore('quests', () => {
         }
       }
 
-      // If manually stopping, ensure queue is also stopped/cleared
-      if (isQueueRunning.value) {
-        isQueueRunning.value = false
-        questQueue.value = [] // Clear queue on manual stop
+      // If manually stopping (user), clear both queues. If auto (completed), play queue will advance below.
+      if (reason !== 'auto') {
+        if (isQueueRunning.value) {
+          isQueueRunning.value = false
+          questQueue.value = []
+        }
+        if (isPlayQueueRunning.value) {
+          isPlayQueueRunning.value = false
+          playQueue.value = []
+        }
       }
 
       let exeToStop = activeGameExe.value
@@ -422,6 +429,13 @@ export const useQuestsStore = defineStore('quests', () => {
       // Refresh quests to get latest status
       await fetchQuests(true)
 
+      // If completed automatically and play queue head was this quest, advance to next (avoid double-advance with onQuestComplete)
+      if (reason === 'auto' && isPlayQueueRunning.value && playQueue.value.length > 0 && playQueue.value[0].id === wasActiveQuestId) {
+        playQueue.value.shift()
+        console.log(`Play queue: finished one, remaining: ${playQueue.value.length}`)
+        setTimeout(() => processPlayQueue(), 2000)
+      }
+
     } finally {
       stopping.value = false
     }
@@ -446,15 +460,29 @@ export const useQuestsStore = defineStore('quests', () => {
     onQuestComplete(() => {
       console.log('Received quest-complete event')
 
-      // If queue is running, handle transition
+      // Play queue: advance to next
+      if (isPlayQueueRunning.value && playQueue.value.length > 0) {
+        const finished = playQueue.value.shift()
+        console.log(`Play queue item finished: ${finished?.id}. Remaining: ${playQueue.value.length}`)
+
+        activeQuestId.value = null
+        activeQuestType.value = null
+        activeQuestProgress.value = 0
+        activeGameExe.value = null
+        localProgress.value = 0
+        stopProgressSimulation()
+
+        fetchQuests(true)
+        setTimeout(() => processPlayQueue(), 2000)
+        cleanupListeners()
+        return
+      }
+
+      // Video queue: advance to next
       if (isQueueRunning.value && questQueue.value.length > 0) {
-        // The active quest just finished. It should be the head of the queue.
-        // (Unless user manually stopped?)
-        // Let's assume head is active.
         const finished = questQueue.value.shift()
         console.log(`Queue item finished: ${finished?.id}. Remaining: ${questQueue.value.length}`)
 
-        // Reset state
         activeQuestId.value = null
         activeQuestType.value = null
         activeQuestProgress.value = 0
@@ -462,31 +490,23 @@ export const useQuestsStore = defineStore('quests', () => {
         localProgress.value = 0
         stopProgressSimulation()
 
-        // Refresh quests to update status in UI
         fetchQuests(true)
-
-        // Trigger next item
-        setTimeout(() => {
-          processQueue()
-        }, 2000)
-
-        // We do NOT cleanup listeners fully if we want to reuse them?
-        // Actually processQueue calls startVideo which calls setupListeners.
-        // So cleaning up here is fine/correct.
+        setTimeout(() => processQueue(), 2000)
         cleanupListeners()
-      } else {
-        // Normal single quest completion
-        activeQuestId.value = null
-        activeQuestType.value = null
-        activeQuestProgress.value = 0
-        activeQuestTargetDuration.value = 0
-        activeGameExe.value = null
-        localProgress.value = 0
-        stopProgressSimulation()
-
-        fetchQuests()
-        cleanupListeners()
+        return
       }
+
+      // Normal single quest completion
+      activeQuestId.value = null
+      activeQuestType.value = null
+      activeQuestProgress.value = 0
+      activeQuestTargetDuration.value = 0
+      activeGameExe.value = null
+      localProgress.value = 0
+      stopProgressSimulation()
+
+      fetchQuests()
+      cleanupListeners()
     }).then((unlisten) => {
       completeUnlisten = unlisten
       console.log('Quest complete listener ready')
@@ -574,6 +594,48 @@ export const useQuestsStore = defineStore('quests', () => {
   const questQueue = ref<Quest[]>([])
   const isQueueRunning = ref(false)
 
+  // Play queue: run Play quests one after another (finish one, then start next).
+  const playQueue = ref<Quest[]>([])
+  const isPlayQueueRunning = ref(false)
+
+  async function processPlayQueue() {
+    if (playQueue.value.length === 0) {
+      isPlayQueueRunning.value = false
+      return
+    }
+
+    isPlayQueueRunning.value = true
+    const quest = playQueue.value[0]
+
+    try {
+      console.log(`Play queue processing: ${quest.id}`)
+      let seconds = 0
+      const taskConfig = quest.config.task_config || quest.config.task_config_v2
+      if (taskConfig?.tasks) {
+        const tasks = Object.values(taskConfig.tasks)
+        if (tasks.length > 0) seconds = tasks[0].target || 0
+      }
+
+      let progress = 0
+      if (quest.user_status?.progress) {
+        const vals = Object.values(quest.user_status.progress)
+        if (vals.length > 0) progress = vals[0].value || 0
+      }
+
+      if (quest.user_status?.completed_at) {
+        playQueue.value.shift()
+        processPlayQueue()
+        return
+      }
+
+      await startPlay(quest, seconds, progress)
+    } catch (e) {
+      console.error('Play queue error:', e)
+      playQueue.value.shift()
+      processPlayQueue()
+    }
+  }
+
   async function processQueue() {
     if (questQueue.value.length === 0) {
       isQueueRunning.value = false
@@ -640,8 +702,10 @@ export const useQuestsStore = defineStore('quests', () => {
     gameQuestMode,
     stopping,
     activeGameExe,
-    questQueue, // Export queue
+    questQueue,
     isQueueRunning,
+    playQueue,
+    isPlayQueueRunning,
     fetchQuests,
     updateQuestEnrollment,
     startVideo,
@@ -661,6 +725,19 @@ export const useQuestsStore = defineStore('quests', () => {
     clearQueue: () => {
       questQueue.value = []
       isQueueRunning.value = false
+      playQueue.value = []
+      isPlayQueueRunning.value = false
+      stop()
+    },
+    addToPlayQueue: (q: Quest) => {
+      if (!playQueue.value.find(x => x.id === q.id)) {
+        playQueue.value.push(q)
+      }
+    },
+    startPlayQueue: processPlayQueue,
+    clearPlayQueue: () => {
+      playQueue.value = []
+      isPlayQueueRunning.value = false
       stop()
     }
   }

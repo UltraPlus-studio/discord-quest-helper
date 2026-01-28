@@ -36,7 +36,9 @@ export default {
         filters: "篩選",
         accept_all: "全部接受",
         complete_all_video: "完成所有影片任務",
+        start_all_play: "全部開始遊玩",
         processing_queue: "處理佇列",
+        processing_play_queue: "遊玩佇列處理中",
         remaining: "剩餘",
         accept_quest: "接受任務",
         stop_quest: "停止任務",
@@ -154,6 +156,8 @@ export default {
         accept_quests_desc: "接受 {count} 個任務？此操作將報名這些任務。",
         complete_quests_title: "完成影片任務",
         complete_quests_desc: "將 {count} 個影片任務加入完成佇列？將逐一處理。",
+        start_all_play_title: "全部開始遊玩任務",
+        start_all_play_desc: "依序執行 {count} 個遊玩任務？每完成一個後自動開始下一個。",
         cancel: "取消",
         accept: "接受",
         start: "開始"

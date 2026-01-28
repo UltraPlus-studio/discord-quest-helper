@@ -36,7 +36,9 @@ export default {
         filters: "筛选",
         accept_all: "全部接受",
         complete_all_video: "完成所有视频任务",
+        start_all_play: "全部开始游玩",
         processing_queue: "处理队列",
+        processing_play_queue: "游玩队列处理中",
         remaining: "剩余",
         accept_quest: "接受任务",
         stop_quest: "停止任务",
@@ -154,6 +156,8 @@ export default {
         accept_quests_desc: "接受 {count} 个任务？此操作将报名这些任务。",
         complete_quests_title: "完成视频任务",
         complete_quests_desc: "将 {count} 个视频任务添加到完成队列？将逐个处理。",
+        start_all_play_title: "全部开始游玩任务",
+        start_all_play_desc: "按顺序运行 {count} 个游玩任务？每完成一个后自动开始下一个。",
         cancel: "取消",
         accept: "接受",
         start: "开始"

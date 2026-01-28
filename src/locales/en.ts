@@ -36,7 +36,9 @@ export default {
         filters: "Filters",
         accept_all: "Accept All",
         complete_all_video: "Complete All Video Quests",
+        start_all_play: "Start All Play",
         processing_queue: "Processing Queue",
+        processing_play_queue: "Processing Play Queue",
         remaining: "remaining",
         accept_quest: "Accept Quest",
         stop_quest: "Stop Quest",
@@ -154,6 +156,8 @@ export default {
         accept_quests_desc: "Accept {count} quests? This action will enroll you in these quests.",
         complete_quests_title: "Complete Video Quests",
         complete_quests_desc: "Add {count} video quests to the completion queue? This will process them one by one.",
+        start_all_play_title: "Start All Play Quests",
+        start_all_play_desc: "Run {count} Play quests one by one? Each quest will start after the previous one completes.",
         cancel: "Cancel",
         accept: "Accept",
         start: "Start"
