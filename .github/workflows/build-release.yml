@@ -29,10 +29,11 @@ jobs:
             args: ''
             x-target: 'win32-x64'
             runner-ext: '.exe'
-          - platform: 'macos-14'  # Apple Silicon M1/M2 runner
-            args: '--target aarch64-apple-darwin'
-            x-target: 'darwin-arm64'
-            runner-ext: ''
+          # macOS: เปิดเมื่อมี runner (บาง org อาจ Startup failure)
+          # - platform: 'macos-14'
+          #   args: '--target aarch64-apple-darwin'
+          #   x-target: 'darwin-arm64'
+          #   runner-ext: ''
 
     runs-on: ${{ matrix.platform }}
     steps:
