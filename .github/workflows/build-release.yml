@@ -4,7 +4,9 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - 'v*'   # สร้าง Release เมื่อ push tag เช่น v0.1.0, v1.0.0
+      - 'v*'
+    branches:
+      - main
     paths:
       - 'public/version.txt'
 
