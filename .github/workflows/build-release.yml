@@ -182,8 +182,10 @@ jobs:
         with:
           name: tauri-macos-arm64-release
           path: tauri-macos-arm64-release
+          optional: true
 
       - name: prepare files
+        id: prepare
         env:
           version: ${{ env.version }}
         run: |
@@ -198,18 +200,27 @@ jobs:
           # Copy Windows MSI installer
           cp tauri-win-msi/*.msi ./build/discord-quest-helper-Windows-x64-${{ env.version }}-setup.msi
           
-          # Package macOS build (find the .dmg file)
-          cd tauri-macos-arm64-release
-          if [ -d "dmg" ]; then
-            cp dmg/*.dmg ../build/discord-quest-helper-MacOS-arm64-${{ env.version }}.dmg
-          elif [ -d "macos" ]; then
-            zip -r ../build/discord-quest-helper-MacOS-arm64-${{ env.version }}.zip macos/
+          # Package macOS build (find the .dmg or .app and zip) - optional if artifact missing
+          MACOS_NAME="discord-quest-helper-MacOS-arm64-${{ env.version }}"
+          MACOS_FILE=""
+          if [ -d "tauri-macos-arm64-release" ]; then
+            cd tauri-macos-arm64-release
+            if [ -d "dmg" ] && [ -n "$(ls -A dmg/*.dmg 2>/dev/null)" ]; then
+              cp dmg/*.dmg ../build/${MACOS_NAME}.dmg
+              MACOS_FILE="${MACOS_NAME}.dmg"
+            elif [ -d "macos" ]; then
+              zip -r ../build/${MACOS_NAME}.zip macos/
+              MACOS_FILE="${MACOS_NAME}.zip"
+            fi
+            cd ..
           fi
-          cd ..
+          echo "macos_file=${MACOS_FILE}" >> $GITHUB_ENV
           
-          echo "win_portable=discord-quest-helper-Windows-x64-${{ env.version }}-portable" >> $GITHUB_ENV
-          echo "win_msi=discord-quest-helper-Windows-x64-${{ env.version }}-setup" >> $GITHUB_ENV
-          echo "macos_build_release=discord-quest-helper-MacOS-arm64-${{ env.version }}" >> $GITHUB_ENV
+          echo "release_files<<EOF" >> $GITHUB_OUTPUT
+          echo "./build/discord-quest-helper-Windows-x64-${{ env.version }}-portable.zip" >> $GITHUB_OUTPUT
+          echo "./build/discord-quest-helper-Windows-x64-${{ env.version }}-setup.msi" >> $GITHUB_OUTPUT
+          [ -n "${MACOS_FILE}" ] && echo "./build/${MACOS_FILE}" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Create and Upload Release
         id: create_release
@@ -219,11 +230,7 @@ jobs:
           name: Release ${{ env.version }}
           body_path: ./public/version-desc.txt
           generate_release_notes: true
-          files: |
-            ./build/${{ env.win_portable }}.zip
-            ./build/${{ env.win_msi }}.msi
-            ./build/${{ env.macos_build_release }}.dmg
-            ./build/${{ env.macos_build_release }}.zip
+          files: ${{ steps.prepare.outputs.release_files }}
           prerelease: false
           draft: false
         env:
